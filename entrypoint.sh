@@ -6,6 +6,10 @@ echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 apt-get update && apt-get install -y google-cloud-sdk
 
+echo "Installing kubectl..."
+gcloud components install kubectl
+kubectl version
+
 echo "Deploying..."
 echo "${GCLOUD_KEY_FILE}" | base64 --decode > gcloud.json
 gcloud auth activate-service-account "${GCLOUD_SERVICE_ACCOUNT}" --key-file=gcloud.json
