@@ -15,15 +15,9 @@ apt-get install -y kubectl
 
 echo "Deploying..."
 echo "${GCLOUD_KEY_FILE}" | base64 --decode > gcloud.json
-echo "Roger 2"
 gcloud auth activate-service-account "${GCLOUD_SERVICE_ACCOUNT}" --key-file=gcloud.json
-echo "Roger 3"
 gcloud config set project "${GCLOUD_PROJECT}"
-echo "Roger 4"
 gcloud config set compute/zone "${GCLOUD_ZONE}"
-echo "Roger 5"
 gcloud container clusters get-credentials "${GCLOUD_KUBERNETES_CLUSTER}"
-echo "Roger 6"
 kubectl set image deployments/"${GCLOUD_KUBE_SERVICE_NAME}" "${GCLOUD_KUBE_SERVICE_NAME}"="${CONTAINER_IMAGE_NAME}"
-echo "Roger 7"
 kubectl patch deployment "${GCLOUD_KUBE_SERVICE_NAME}" -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
