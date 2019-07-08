@@ -19,5 +19,5 @@ gcloud auth activate-service-account "${GCLOUD_SERVICE_ACCOUNT}" --key-file=gclo
 gcloud config set project "${GCLOUD_PROJECT}"
 gcloud config set compute/zone "${GCLOUD_ZONE}"
 gcloud container clusters get-credentials "${GCLOUD_KUBERNETES_CLUSTER}"
-kubectl set image deployments/"${GCLOUD_KUBE_SERVICE_NAME}" "${GCLOUD_KUBE_SERVICE_NAME}"="${CONTAINER_IMAGE_NAME}"
+kubectl set image deployments/"${GCLOUD_KUBE_SERVICE_NAME}" "${GCLOUD_KUBE_CONTAINER_NAME}"="${CONTAINER_IMAGE_NAME}"
 kubectl patch deployment "${GCLOUD_KUBE_SERVICE_NAME}" -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
